@@ -45,6 +45,7 @@ public class HomeController {
 			// 도서 목록 더미 데이터 저장하기 위한 리스트
 			ArrayList<Book> list = new ArrayList<>();
 			
+			
 			// 더미 데이터 5개를 리스트에 저장.
 			for (int i = 1; i <= 5; i++) {
 				Book book = Book.builder()
