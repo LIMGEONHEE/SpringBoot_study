@@ -43,7 +43,6 @@ public class EmployeeRepositoryTest {
 	public void findByTest() {
 		// TODO: 사번으로 검색하는 메서드를 찾아서 단위 테스트 코드 작성.
 		
-		
 	}
 	
 	// TODO: DEPT 테이블과 매핑되는 엔티티 클래스를 설계, 리포지토리 인터페이스 작성
