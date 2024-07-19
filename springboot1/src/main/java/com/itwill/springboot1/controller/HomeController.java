@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwill.springboot1.dto.Author;
 import com.itwill.springboot1.dto.Book;
@@ -61,6 +63,38 @@ public class HomeController {
 			
 			// 도서 목록을 뷰에 전달.
 			model.addAttribute("bookList",list);
+		}
+		
+		@GetMapping("/book/details")
+		public void bookDetails(@RequestParam(name = "id") Integer id, Model model) {
+			// 요청 파라미터 id 값을 찾고, 해당 id를 갖는 Book 객체를 만듦.
+			// 모델에 Book 객체를 속성(attr)으로 저장. 뷰로 저장.
+			
+			log.info("bookDetails(id={}), id");
+			
+			Book book = Book.builder()
+							.id(id)
+							.title("종의 기원")
+							.author(Author.builder().firstName("찰스").lastName("다윈").build())
+							.build();
+			model.addAttribute("book",book);
+			
+		}
+		
+		// TODO: path variable을 포함하는 요청을 처리하는 메서드.
+		@GetMapping("/book/details/{id}")
+		public String bookDetails2(@PathVariable(name = "id") int id, Model model) { // void로 하면 안됨. {id}가 바뀔때 마다 모든 html이 있어야 하는데 불가능하기 때문에.
+			log.info("bookDetails(id={})", id);
+			
+			Book book = Book.builder()
+					.id(id)
+					.title("종의 기원")
+					.author(Author.builder().firstName("유정").lastName("정").build())
+					.build();
+			model.addAttribute("book",book);
+			
+			return "book/details";
+			//-> templates/book/details.html
 		}
 		
 }
