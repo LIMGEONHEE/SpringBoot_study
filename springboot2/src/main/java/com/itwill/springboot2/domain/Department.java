@@ -13,7 +13,7 @@ import lombok.ToString;
 @Entity
 @NoArgsConstructor
 @Table(name= "DEPT")
-public class Dept {
+public class Department {
     @Id
     @Column(name = "DEPTNO")
     private Integer id;
