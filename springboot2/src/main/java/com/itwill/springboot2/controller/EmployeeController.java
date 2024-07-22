@@ -1,4 +1,4 @@
-package com.itwill.springboot2.contronller;
+package com.itwill.springboot2.controller;
 
 import java.util.List;
 

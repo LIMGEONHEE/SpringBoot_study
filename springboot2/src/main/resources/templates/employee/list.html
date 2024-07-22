@@ -26,11 +26,16 @@
 						<td th:text="*{id}"></td> <!-- Employee의 필드 이름-->
 						<td th:text="*{ename}"></td>
 						<td th:text="*{job}"></td>
-						<td th:text="*{manager}"></td>
+						<td>
+							<!-- div 처럼 쓸 수 있지만 사용하면 태그가 빠짐-->
+							<th:block th:if="*{manager != null}">
+								<a th:text="*{manager.ename}"></a>
+							</th:block>
+						</td>
 						<td th:text="*{hiredate}"></td>
 						<td th:text="*{salary}"></td>
 						<td th:text="*{commission}"></td>
-						<td th:text="*{department}"></td>
+						<td th:text="*{department.dname}"></td>
 					</tr>
 				</tbody>
 			</table>
