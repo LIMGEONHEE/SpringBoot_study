@@ -1,10 +1,12 @@
 package com.itwill.springboot2.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itwill.springboot2.domain.Employee;
@@ -33,4 +35,15 @@ public class EmployeeController {
 		// 직원 목록을 뷰 템플릿에게 전달
 		model.addAttribute("employees", list);
 	}
+
+	@GetMapping("/details/{id}")
+    public String empDetails(@PathVariable(name = "id") Integer id, Model model) {
+        log.info("empDetails(id={})", id);
+        
+        Employee emp = empSvc.employeeDetails(id);
+        model.addAttribute("employee", emp);
+        
+        return "employee/details";
+    }
+
 }

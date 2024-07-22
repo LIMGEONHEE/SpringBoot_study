@@ -23,8 +23,12 @@
 				</thead>
 				<tbody>
 					<tr th:each="emp : ${employees}" th:object = "${emp}">
-						<td th:text="*{id}"></td> <!-- Employee의 필드 이름-->
-						<td th:text="*{ename}"></td>
+						<td>
+							<a th:href="@{/employee/details/} + *{id}" th:text="*{id}"></a>
+						</td> <!-- Employee의 필드 이름-->
+						<td>
+							<a th:href="@{/employee/details/} + *{id}" th:text="*{ename}"></a>
+						</td>
 						<td th:text="*{job}"></td>
 						<td>
 							<!-- div 처럼 쓸 수 있지만 사용하면 태그가 빠짐-->
