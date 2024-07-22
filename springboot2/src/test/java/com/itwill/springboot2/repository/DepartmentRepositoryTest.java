@@ -10,8 +10,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.itwill.springboot2.domain.Department;
+import com.itwill.springboot2.domain.Employee;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class) // 테스트 클래스 안에 테스트 메서드를 순서를 지정해서 진행.
 @SpringBootTest
 public class DepartmentRepositoryTest {
-    
+
     @Autowired
     private DepartmentRepository deptRepo;
     
@@ -31,6 +33,7 @@ public class DepartmentRepositoryTest {
         log.info("deptRepo: {}", deptRepo);
     }
     
+    @Transactional // org.springframework.transaction.annotation.Transactional
     @Test
     @Order(2)
     public void findAllTest() {
@@ -41,6 +44,7 @@ public class DepartmentRepositoryTest {
         list.forEach(System.out::println);
     }
     
+    @Transactional
     @Test
     @Order(3)
     public void findByTest() {
@@ -49,6 +53,10 @@ public class DepartmentRepositoryTest {
         Department dept1 = deptRepo.findById(10).orElseThrow();
         assertThat(dept1.getId()).isEqualTo(10);
         log.info("dept1: {}", dept1);
+
+        // OneTOMany 관계: 10번 부서의 모든 직원 정보 출력
+        List<Employee> employees = dept1.getEmployees();
+        employees.forEach(System.out::println);
         
         // 부서번호가 테이블에 없는 경우:
         boolean isEmpty = deptRepo.findById(100).isEmpty();
