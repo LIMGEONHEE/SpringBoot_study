@@ -59,5 +59,18 @@ public class EmployeeRepositoryTest {
 
 	}
 
+	@Transactional
+	@Test
+	public void findManagerTest(){
+		// 사번이 7369인 직원 정보 검색: 
+		Employee emp = empRepo.findById(7369).orElseThrow();
+		assertThat(emp.getId()).isEqualTo(7369);
+		log.info("emp={}", emp);
+
+		Employee mgr = emp.getManager();
+		assertThat(mgr.getId()).isEqualTo(7902); // 7369 직원의 매니저는 7902
+		log.info("mgr={}", mgr);
+	}
+
 	
 }
