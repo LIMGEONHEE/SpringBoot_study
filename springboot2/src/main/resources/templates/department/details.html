@@ -8,22 +8,66 @@
 		<div th:replace="~{/layout/fragments :: pageHeader('부서 상세 페이지')}"></div>
 
 		<main>
-            <table> 
-                <tbody th:object="${department}">
-                    <tr>
-                        <th>부서번호</th>
-                        <td th:text="*{id}"></td>
-                    </tr>
-                    <tr>
+            <section>
+                <table> 
+                    <tbody th:object="${department}">
+                        <tr>
+                            <th>부서번호</th>
+                            <td th:text="*{id}"></td>
+                        </tr>
+                        <tr>
+                            <th>부서</th>
+                            <td th:text="*{dname}"></td>
+                        </tr>
+                        <tr>
+                            <th>지역</th>
+                            <td th:text="*{location}"></td>
+                        </tr>
+                    </tbody>                                    
+                </table>
+            </section>
+            <section>
+                <table>
+                    <thead>
+                        <tr>
+                        <th>사번</th>
+                        <th>이름</th>
+                        <th>직무</th>
+                        <th>매니저</th>
+                        <th>입사일</th>
+                        <th>급여</th>
+                        <th>수당</th>
                         <th>부서</th>
-                        <td th:text="*{dname}"></td>
                     </tr>
-                    <tr>
-                        <th>지역</th>
-                        <td th:text="*{location}"></td>
-                    </tr>
-                </tbody>                                    
-            </table>
+                    </thead>
+                    <tbody>
+                        <tr th:each="emp : ${department.employees}" th:object="${emp}">
+                            <td>
+                                <a th:href="@{/employee/details/{id}(id=*{id})}"
+                                    th:text="*{id}"></a>
+                            </td>
+                            <td>
+                                <a th:href="@{/employee/details/{id}(id=*{id})}"
+                                    th:text="*{ename}"></a>
+                            </td>
+                            <td th:text="*{job}"></td>
+                            <td>
+                                <th:block th:if="*{manager != null}">
+                                    <a th:href="@{/employee/details/{id}(id=*{id})}"
+                                        th:text="*{manager.ename}"></a>
+                                </th:block>
+                            </td>
+                            <td th:text="*{hiredate}"></td>
+                            <td th:text="*{salary}"></td>
+                            <td th:text="*{commission}"></td>
+                            <td>
+                                <a th:href="@{/department/details/{id}(id=*{department.id})}"
+                                    th:text="*{department.dname}"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
         </main>
 	</body>
 </html>

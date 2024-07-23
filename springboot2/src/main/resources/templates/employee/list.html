@@ -24,10 +24,10 @@
 				<tbody>
 					<tr th:each="emp : ${employees}" th:object = "${emp}">
 						<td>
-							<a th:href="@{/employee/details/} + *{id}" th:text="*{id}"></a>
+							<a th:href="@{/employee/details/{id}(id=*{id})}" th:text="*{id}"></a>
 						</td> <!-- Employee의 필드 이름-->
 						<td>
-							<a th:href="@{/employee/details/} + *{id}" th:text="*{ename}"></a>
+							<a th:href="@{/employee/details/{id}(id=*{id})}" th:text="*{ename}"></a>
 						</td>
 						<td th:text="*{job}"></td>
 						<td>

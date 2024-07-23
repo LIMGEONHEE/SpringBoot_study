@@ -16,9 +16,8 @@ import lombok.ToString;
 
 // ORM(Objet Relation Mapping) -> JPA(Java Persistence API) -> Hibernate
 
-@Getter @ToString @EqualsAndHashCode
+@NoArgsConstructor @Getter @ToString @EqualsAndHashCode
 @Entity // 데이터베이스 테이블과 매핑하는 자바 객체
-@NoArgsConstructor
 @Table(name = "EMP") // 클래스 이름과 실제 테이블 이름이 다를 때. 
 public class Employee {
     @Id // Primary Key
@@ -29,8 +28,8 @@ public class Employee {
     
     private String job;
     
-    @ToString.Exclude
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude // 다른 컬럼과 연결이 되어 있으면 반드시 ToString을 제외 시켜야 한다.
+    @ManyToOne(fetch = FetchType.LAZY) // 정보가 필요할 때에만 별도로 가져온다.
     @JoinColumn(name = "MGR")
     private Employee manager;
     

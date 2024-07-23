@@ -29,7 +29,9 @@ public class EmployeeService {
     public Employee employeeDetails(Integer id) {
         log.info("employeeDetails(id={})", id);
         
-        return empRepo.findById(id).orElse(null);
+        return empRepo.findById(id).orElse(null); 
+        // findById가 타입이 Optional이기 때문에 id가 있을 수도 null 일 수도 있어서 뒤에 더 붙여줘야한다.
+        // get()와 {orElseThrow(): 잘못된 아이디가 들어오면 오류다}는 같다. orElseGet(()-> x)
     }
     
 }

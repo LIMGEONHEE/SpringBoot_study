@@ -28,7 +28,7 @@ public class Department {
     private String location;
 
     @ToString.Exclude
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
-    // mappedBy: Employee 엔티티에서 @OneToMany 애너테이션이 설정된 필드 이름.
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department") // Employee에서 만들어서 여기서 설정을 안해도 된다. 주의해서 사용.
+    // mappedBy: Employee 엔티티에서 @ManyToOne 애너테이션이 설정된 필드 이름.
     private List<Employee> employees;
 }

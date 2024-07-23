@@ -26,6 +26,6 @@ public class DepartmentService {
     public Department departmentDetails(Integer id){
         log.info("departmentDetails");
 
-        return deptRepo.findById(id).orElse(null);
+        return deptRepo.findById(id).orElseThrow();
     }
 }

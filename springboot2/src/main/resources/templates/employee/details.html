@@ -24,7 +24,15 @@
                     </tr>
                     <tr>
                         <th>매니저</th>
-                        <td th:text="*{manager != null} ? *{manager.ename} : ''"></td>
+                        <td>
+                            <th:block th:if="*{manager != null}">
+                                <a th:href="@{/employee/details/{id}(id=*{manager.id})}"
+                                    th:text="*{manager.ename}"></a>
+                            </th:block>
+                            <th:block th:if="*{manager == null}">
+                                '없음'
+                            </th:block>
+                        </td>
                     </tr>
                     <tr>
                         <th>입사일</th>

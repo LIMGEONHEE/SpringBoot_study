@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RequiredArgsConstructor //-> final 필드를 초기화하는 생성자. 생성자에 의한 의존성 주입.
+@RequiredArgsConstructor //-> final 필드를 초기화하는 생성자. 생성자에 의한 의존성 주입.final 필드를 아규먼트로 갖는 생성자.
 @Controller
 @RequestMapping("/employee")
 public class EmployeeController {
@@ -25,7 +25,7 @@ public class EmployeeController {
 	// 생성자에 의한 의존성 주입: (1) @RequiredArgsConstructor + (2) final field
 	private final EmployeeService empSvc;
 
-	@GetMapping("/list")
+	@GetMapping("/list") 
 	public void list(Model model) {
 		log.info("list()");
 
