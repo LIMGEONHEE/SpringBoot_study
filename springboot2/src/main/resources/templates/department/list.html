@@ -18,9 +18,11 @@
                 </thead>
                     <tr th:each="dept : ${department}" th:object = "${dept}">
                         <td>
-                            <a th:href="@{/department/details/} + *{id}" th:text="*{id}"></a>
+                            <a th:href="@{/department/details/{id}(id=*{id})}" th:text="*{id}"></a>
                         </td>
-                        <td th:text="*{dname}"></td>
+                        <td>
+                            <a th:href="@{/department/details/{id}(id=*{id})}" th:text="*{dname}" ></a>
+                        </td>
                         <td th:text="*{location}"></td>
                     </tr>
                 <tbody>
