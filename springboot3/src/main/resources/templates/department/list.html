@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Spring Boot 3</title>
+	</head>
+	<body>
+		<div th:replace="~{/layout/fragments :: pageHeader('부서 목록 페이지')}"></div>
+        
+        <main>
+            <table>
+                <thead>
+                    <tr>
+                        <th>부서번호</th>
+                        <th>부서</th>
+                        <th>매니저</th>
+                        <th>지역</th>
+                    </tr>
+                </thead>
+                    <tr th:each="dept : ${department}" th:object = "${dept}">
+                        <td>
+                            <a th:href="@{/department/details/{id}(id=*{id})}" th:text="*{id}"></a>
+                        </td>
+                        <td>
+                            <a th:href="@{/department/details/{id}(id=*{id})}" th:text="*{departmentName}" ></a>
+                        </td>
+                        <td>
+                            <th:block th:if="*{manager != null}">
+                                    <a th:href="@{/employee/details/{id}(id=*{id})}"
+                                        th:text="*{manager.firstName} + *{manager.lastName}"></a>
+                            </th:block>
+                        </td>
+                    </tr>
+                <tbody>
+
+                </tbody>
+            </table>
+    
+        </main>
+	</body>
+</html>

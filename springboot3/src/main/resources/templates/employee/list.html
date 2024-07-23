@@ -29,8 +29,7 @@
                             <a th:href="@{/employee/details/{id}(id=*{id})}" th:text="*{id}"></a>
                         </td>
                         <td>
-                            <th:block th:text="*{firstName}"></th:block>
-                            <th:block th:text="*{lastName}"></th:block>
+                            <a th:href="@{/employee/details/{id}(id=*{id})}" th:text="*{firstName} + *{lastName}"></a>
                         </td>
                         <td th:text="*{email}"></td>
                         <td th:text="*{phoneNumber}"></td>
@@ -38,7 +37,15 @@
                         <td>
                             <a th:text="*{job.jobTitle}"></a>
                         </td>
-                    
+                        <td th:text="*{salary}"></td>
+                        <td th:text="*{commissionPct}"></td>
+                        <td>
+                            <th:block th:if="*{manager != null}">
+                                <a th:href="@{/employee/details/{id}(id=*{manager.id})}"
+                                    th:text="*{manager.firstName} + *{manager.lastName}"></a>
+                            </th:block>
+                        </td>
+                        <td th:text="*{department.departmentName}"></td>
                     </tr>
                 </tbody>
             </table>
