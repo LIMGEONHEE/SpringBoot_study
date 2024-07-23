@@ -34,7 +34,7 @@ public class DepartmentController {
   }
 
   @GetMapping("/details/{id}")
-  public String deptDetails(@PathVariable(name = "id") Integer id, Model model) {
+  public String deptDetails(@PathVariable Integer id, Model model) {
     log.info("deptDetails(id={})", id);
 
     Department dept = deptSvc.departmentDetails(id);
