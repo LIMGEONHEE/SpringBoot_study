@@ -25,7 +25,7 @@ public class Location {
 
     private String city;
 
-    private String stateProvonce;
+    private String stateProvince;
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)

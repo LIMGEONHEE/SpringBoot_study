@@ -14,7 +14,7 @@
                         <th>부서번호</th>
                         <th>부서</th>
                         <th>매니저</th>
-                        <th>지역</th>
+                        <th>지역</th>               
                     </tr>
                 </thead>
                     <tr th:each="dept : ${department}" th:object = "${dept}">
@@ -30,6 +30,7 @@
                                         th:text="*{manager.firstName} + *{manager.lastName}"></a>
                             </th:block>
                         </td>
+                        <td th:text=" *{location.city}"></td>
                     </tr>
                 <tbody>
 
