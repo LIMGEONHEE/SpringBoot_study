@@ -46,7 +46,8 @@ public class EmployeeRepositoryTest {
         log.info("employees[0]={}", list.get(0));
     }
 
-    @Transactional
+    @Transactional 
+    // FetchType.LAZY 을 사용하면 써줘야 함. 트랜젝션이 경계를 관리하여 지연 로딩이 안전하게 실행될 수 있도록 도와준다. 
     @Test
     public void testFindById(){
         // 1. EmployeeRepository.findById() 메서드 테스트
@@ -58,6 +59,10 @@ public class EmployeeRepositoryTest {
         log.info("emp={}", emp);
         log.info("emp.job={}", emp.getJob());
         log.info("emp.manager={}", emp.getManager());
+        log.info("emp.department={}", emp.getDepartment());
+        log.info("emp.department.lacation={}", emp.getDepartment().getLocation());
+        log.info("emp.department.location.country={}", emp.getDepartment().getLocation().getCountry());
     }
+    
 
 }
