@@ -1,12 +1,11 @@
 package com.itwill.springboot3.service;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.itwill.springboot3.domain.Employee; // 페이징 처리가 되어 있는 객체
 import com.itwill.springboot3.dto.EmployeeListItemDto;
@@ -21,7 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 public class EmployeeSerivce {
 
 	private final EmployeeRepository empRepo;
-	
+
+	@Transactional(readOnly = true) // 엔터티 객체들을 읽기 전용으로 검색. 엔터티의 변화가 없을 거라고 JPA에게 알려준다.	
 	public Page<EmployeeListItemDto> read(int pageNo, Sort sort) { // org.springframework.data.domain.Sort으로 선택. (페이지 넘버, 정렬 기준)
 		log.info("read(pageNo={}, sort={})", pageNo, sort);
 		
@@ -48,8 +48,9 @@ public class EmployeeSerivce {
 		// 		.toList(); // 가져온걸 리스트에 담음.
 	}
 	
+	@Transactional(readOnly = true)
 	public Employee read(Integer id) {
-		log.info("employeeDetails(id={})", id);
+		log.info("read(id={})", id);
 		
 		return empRepo.findById(id).orElseThrow();
 	}

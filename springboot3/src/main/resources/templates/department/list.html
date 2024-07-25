@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<meta charset="UTF-8">
-		<title>Spring Boot 3</title>
+		<th:block th:replace="~{/layout/fragments :: documentHeader}"></th:block>
 	</head>
 	<body>
-		<div th:replace="~{/layout/fragments :: pageHeader('부서 목록 페이지')}"></div>
+		<div th:replace="~{/layout/fragments :: pageHeader('부서 목록')}"></div>
         
-        <main>
-            <table>
+        <main class="mt-2">
+            <table class = "table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>부서번호</th>
-                        <th>부서</th>
-                        <th>매니저</th>
-                        <th>지역</th>               
+                        <th style="width: 25%; text-align: center;">부서번호</th>
+                        <th style="width: 25%; text-align: center;">부서</th>
+                        <th style="width: 25%; text-align: center;">매니저</th>
+                        <th style="width: 25%; text-align: center;">지역</th>               
                     </tr>
                 </thead>
-                    <tr th:each="dept : ${department}" th:object = "${dept}">
+                    <tr th:each="dept : ${page}" th:object = "${dept}">
                         <td>
                             <a th:href="@{/department/details/{id}(id=*{id})}" th:text="*{id}"></a>
                         </td>
@@ -27,7 +26,7 @@
                         <td>
                             <th:block th:if="*{manager != null}">
                                     <a th:href="@{/employee/details/{id}(id=*{id})}"
-                                        th:text="*{manager.firstName} + *{manager.lastName}"></a>
+                                        th:text="*{manager.firstName} + ' ' +*{manager.lastName}"></a>
                             </th:block>
                         </td>
                         <td th:text=" *{location.city}"></td>
@@ -36,7 +35,31 @@
 
                 </tbody>
             </table>
-    
+
+            <div class="mt-2">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"
+                        th:classappend="${!page.hasPrevious} ? 'disabled'">
+                        <a class="page-link"
+                            th:href="@{|?p=${page.number - 1}|}">이전</a>
+                    </li>
+                    <li class="page-item"
+                        th:each="pageNo : ${#numbers.sequence(0, page.totalPages - 1)}"
+                        th:if="${pageNo >= page.number - 2 && pageNo < page.number + 2}"
+                        th:classappend="${pageNo == page.number} ? 'active'">
+                    <a class="page-link"
+                        th:href="@{|?p=${pageNo}|}"
+                        th:text="${pageNo + 1}"></a>
+                    </li>
+                    <li class="page-item"
+                        th:classappend="${!page.hasNext} ? 'disabled'">
+                        <a class="page-link"
+                            th:href="@{|?p=${page.number + 1}|}">다음</a>
+                    </li>
+                </ul>
+            </div>
         </main>
+
+        <th:block th:replace="~{/layout/fragments :: bootstrapJS}"></th:block>
 	</body>
 </html>
