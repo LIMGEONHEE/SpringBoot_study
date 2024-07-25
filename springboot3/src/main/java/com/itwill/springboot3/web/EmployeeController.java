@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itwill.springboot3.domain.Employee;
+import com.itwill.springboot3.dto.EmployeeListItemDto;
 import com.itwill.springboot3.service.EmployeeSerivce;
 
 
@@ -27,9 +28,10 @@ public class EmployeeController {
 	public void list(Model model) {
 		log.info("list()");
 		
-		 List<Employee> list = empSvc.read();
-		 model.addAttribute("employees", list);
-		
+		// 서비스(비즈니스) 계층의 메서드를 호출해서 뷰에 전달할 직원 목록을 가져옴.
+		List<EmployeeListItemDto> list = empSvc.read();
+		model.addAttribute("employees", list); // 뷰에서는 employees로 부르면 된다.
+	
 	}
 	
 	@GetMapping("/details/{id}")

@@ -1,55 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<meta charset="UTF-8">
-		<title>Spring Boot 3</title>
+		<th:block th:replace="~{/layout/fragments :: documentHeader}"></th:block>
 	</head>
 	<body>
         <div th:replace="~{/layout/fragments :: pageHeader('직원 목록 페이지')}"></div>
         
         <main>
-            <table>
+            <table class= "table">
                 <thead>
                     <tr>
                         <th>사번</th>
                         <th>이름</th>
-                        <th>이메일</th>
                         <th>전화번호</th>
-                        <th>입사일</th>
                         <th>직업</th>
-                        <th>급여</th>
-                        <th>수당</th>
-                        <th>매니저</th>
                         <th>부서</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="emp : ${employees}" th:object="${emp}">
                         <td>
-                            <a th:href="@{/employee/details/{id}(id=*{id})}" th:text="*{id}"></a>
+                            <a th:href="@{/employee/details/{employeeId}(employeeId=*{employeeId})}" th:text="*{employeeId}"></a>
                         </td>
                         <td>
-                            <a th:href="@{/employee/details/{id}(id=*{id})}" th:text="*{firstName} + *{lastName}"></a>
+                            <a th:href="@{/employee/details/{employeeId}(employeeId=*{employeeId})}" th:text="*{employeeName}"></a>
                         </td>
-                        <td th:text="*{email}"></td>
                         <td th:text="*{phoneNumber}"></td>
-                        <td th:text="*{hireDate}"></td>
                         <td>
-                            <a th:text="*{job.jobTitle}"></a>
+                            <a th:text="*{jobTitle}"></a>
                         </td>
-                        <td th:text="*{salary}"></td>
-                        <td th:text="*{commissionPct}"></td>
-                        <td>
-                            <th:block th:if="*{manager != null}">
-                                <a th:href="@{/employee/details/{id}(id=*{manager.id})}"
-                                    th:text="*{manager.firstName} + *{manager.lastName}"></a>
-                            </th:block>
-                        </td>
-                        <td th:text="*{department.departmentName}"></td>
+                        <td th:text="*{departmentName}"></td>
                     </tr>
                 </tbody>
             </table>
         </main>
-		
+		<th:block th:replace="~{/layout/fragments :: bootstrapJS}"></th:block>
 	</body>
 </html>
