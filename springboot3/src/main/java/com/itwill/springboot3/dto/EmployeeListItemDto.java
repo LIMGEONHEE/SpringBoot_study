@@ -16,6 +16,7 @@ public class EmployeeListItemDto {
     private String jobTitle;
     private String departmentName;
     
+    
     public static EmployeeListItemDto fromEntity(Employee entity){
         // job과 department가 null일 경우 처리를 하기 위해서.
         String jobTitle = (entity.getJob() != null) ? 

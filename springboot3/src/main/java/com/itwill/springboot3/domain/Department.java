@@ -8,13 +8,18 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-
-@NoArgsConstructor @Getter @ToString @EqualsAndHashCode
+@NoArgsConstructor 
+@AllArgsConstructor(access = AccessLevel.PRIVATE) // 생성자를 Private로 감추어서 외부에서 생성자를 호출할 수 없게 한다. 
+@Builder
+@Getter @ToString @EqualsAndHashCode
 @Entity @Table(name = "DEPARTMENTS")
 public class Department {
 

@@ -19,43 +19,25 @@
                 </thead>
                 <tbody>
                     <tr th:each="emp : ${page}" th:object="${emp}">
-                        <td>
+                        <td style="width: 20%; text-align: center;">
                             <a th:href="@{/employee/details/{id}(id=*{employeeId})}" th:text="*{employeeId}"></a>
                         </td>
-                        <td>
+                        <td style="width: 20%; text-align: center;">
                             <a th:href="@{/employee/details/{id}(id=*{employeeId})}" th:text="*{employeeName}"></a>
                         </td>
-                        <td th:text="*{phoneNumber}"></td>
-                        <td>
+                        <td style="width: 20%; text-align: center;" th:text="*{phoneNumber}"></td>
+                        <td style="width: 20%; text-align: center;">
                             <a th:text="*{jobTitle}"></a>
                         </td>
-                        <td th:text="*{departmentName}"></td>
+                        <td style="width: 20%; text-align: center;">
+                            <a th:href="@{/department/details(dname=*{departmentName})}"
+                                th:text="*{departmentName}"></a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
 
-            <div class="mt-2">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item"
-                        th:classappend="${!page.hasPrevious} ? 'disabled'">
-                        <a class="page-link"
-                            th:href="@{|?p=${page.number - 1}|}">이전</a>
-                    </li>
-                    <li class="page-item"
-                        th:each="pageNo : ${#numbers.sequence(0, page.totalPages - 1)}"
-                        th:if="${pageNo >= page.number - 5 && pageNo < page.number + 5}"
-                        th:classappend="${pageNo == page.number} ? 'active'">
-                    <a class="page-link"
-                        th:href="@{|?p=${pageNo}|}"
-                        th:text="${pageNo + 1}"></a>
-                    </li>
-                    <li class="page-item"
-                        th:classappend="${!page.hasNext} ? 'disabled'">
-                        <a class="page-link"
-                            th:href="@{|?p=${page.number + 1}|}">다음</a>
-                    </li>
-                </ul>
-            </div>
+            <div class="mt-2" th:insert="~{/layout/fragments :: pagination}"></div>
         </main>
 		<th:block th:replace="~{/layout/fragments :: bootstrapJS}"></th:block>
 	</body>
