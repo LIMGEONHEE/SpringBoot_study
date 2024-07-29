@@ -22,7 +22,7 @@ public class PostService {
     public List<PostListItemDto> read() {
         log.info("read()");
         // 영속석(persistence/repository) 계층의 메서드를 호출해서 엔터티들의 리스트를 가져옴.
-        List<Post> list = postRepo.findAll();
+        List<Post> list = postRepo.findAllByOrderByIdDesc();
         log.info("list.size = {}", list.size());
 
         // List<Post>를 List<PostListItemDto> 타입으로 변환.
