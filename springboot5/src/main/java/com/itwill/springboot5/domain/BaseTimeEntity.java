@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.EntityListeners;
@@ -25,6 +26,6 @@ public class BaseTimeEntity {  // 여러 클래스에 공통되어 사용되기 
     @CreatedDate // 엔터티 (최초) 생성 시간을 저장하는 필드.
     private LocalDateTime createdTime;
 
-    @LastModifiedBy // 엔터티 (최종) 수정 시간을 저장하는 필드.
+    @LastModifiedDate // 엔터티 (최종) 수정 시간을 저장하는 필드.
     private LocalDateTime modifiedTime;
 }
