@@ -26,6 +26,6 @@ public class Question2 {
     @OneToMany
     // Answer2 엔터티에서 @ManyToOne을 사용하지 않고,
     // Question2 엔터티에서만 @OneToMany를 사용한 단방향 연관 관계인 경우,
-    // question2_answers 관계 테이블이 자동으로 생성됨.
+    // question2_answers 관계 테이블이 자동으로 생성됨.(테이블 이름_필드 이름)
     private Set<Answer2> answers;
 }
