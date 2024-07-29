@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.itwill.springboot5.dto.PostCreateDto;
 import com.itwill.springboot5.dto.PostListItemDto;
 import com.itwill.springboot5.service.PostService;
 
@@ -27,4 +29,20 @@ public class PostController {
          List<PostListItemDto> list = postSvc.read();
          model.addAttribute("posts", list);
     }
+
+    @GetMapping("/create")
+    public void create(Model model) {
+        log.info("create()");
+
+        model.addAttribute("create", new PostCreateDto());
+    }
+
+    @PostMapping("/create")
+    public String createPost(PostCreateDto dto) {
+        log.info("createPost(dto={})",dto);
+
+        postSvc.create(dto);
+        return "redirect:/post/list";
+    }
+
 }

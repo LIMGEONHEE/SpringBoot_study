@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.itwill.springboot5.domain.Post;
+import com.itwill.springboot5.dto.PostCreateDto;
 import com.itwill.springboot5.dto.PostListItemDto;
 import com.itwill.springboot5.repository.PostRepository;
 
@@ -30,6 +31,20 @@ public class PostService {
             .toList();
 
         return posts;
+    }
+
+    public PostListItemDto create(PostCreateDto dto) {
+        log.info("create(dto={})", dto);
+        Post post = Post.builder()
+                        .title(dto.getTitle())
+                        .content(dto.getContent())
+                        .author(dto.getAuthor())
+                        .build();
+        
+        post = postRepo.save(post);
+        log.info("post Save ={}", post);
+
+        return PostListItemDto.fromEntity(post);
     }
 
 
