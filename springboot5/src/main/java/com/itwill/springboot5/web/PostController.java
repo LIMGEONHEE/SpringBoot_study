@@ -31,17 +31,17 @@ public class PostController {
     }
 
     @GetMapping("/create")
-    public void create(Model model) {
+    public void create() {
         log.info("create()");
-
-        model.addAttribute("create", new PostCreateDto());
     }
 
     @PostMapping("/create")
-    public String createPost(PostCreateDto dto) {
-        log.info("createPost(dto={})",dto);
+    public String create(PostCreateDto dto) {
+        log.info("Post create(dto={})",dto);
 
+        // 서비스 계층의 메서드를 호출해서 작성한 포스트를 DB에 저장.
         postSvc.create(dto);
+        
         return "redirect:/post/list";
     }
 
