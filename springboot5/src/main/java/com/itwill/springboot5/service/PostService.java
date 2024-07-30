@@ -2,6 +2,10 @@ package com.itwill.springboot5.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,16 +25,23 @@ public class PostService {
     private final PostRepository postRepo;
 
     @Transactional(readOnly = true) // 읽기 전용
-    public List<PostListItemDto> read() {
-        log.info("read()");
-        // 영속석(persistence/repository) 계층의 메서드를 호출해서 엔터티들의 리스트를 가져옴.
-        List<Post> list = postRepo.findAllByOrderByIdDesc();
-        log.info("list.size = {}", list.size());
+    public Page<PostListItemDto> read(int pageNo, Sort sort) {
+        log.info("read(page={}, sort={})",pageNo, sort);
 
-        // List<Post>를 List<PostListItemDto> 타입으로 변환.
-        List<PostListItemDto> posts = list.stream()
-            .map(PostListItemDto::fromEntity)
-            .toList();
+        // pageable 객체 생성
+        Pageable pageable = PageRequest.of(pageNo, 10, sort); // pageSize= 한페이지에 몇개를 보여줄 건지.
+
+        // 영속석(persistence/repository) 계층의 메서드를 호출해서 엔터티들의 리스트를 가져옴.
+        Page<Post> list = postRepo.findAll(pageable);
+        log.info("page.totalPages", list.getTotalPages()); // 전체 페이지 개수
+        log.info("list.size = {}", list.getNumber()); // 현재 페이지 번호
+        log.info("page.hasPrevious", list.hasPrevious()); // 이전 페이지가 있는 지 여부
+        log.info("page.hasNext", list.hasNext()); // 다음 페이지가 있는 지 여부
+
+        // Page<Post>를 Page<PostListItemDto> 타입으로 변환.
+        // (x) -> PostListItemDto.fromEntity(x)
+        Page<PostListItemDto> posts = list.map(PostListItemDto::fromEntity); 
+        // List<>는 stream으로 보내야하지만 Page<>는 바로 map으로 시작해돈된다.
 
         return posts;
     }

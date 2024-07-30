@@ -46,6 +46,29 @@
             </div>
         </nav>
     </th:block>
+
+    <th:block th:fragment="pagination">
+      <nav> 
+        <ul class="pagination justify-content-center"><!-- justify-content-center 가운데 정렬 -->
+          <li class="page-item" th:classappend="${!page.hasPrevious} ? 'disabled'"> <!--- 이전 페이지가 없다면 'disabled' -->
+            <a class="page-link" th:href="@{|?p=${page.number -1}|}">이전</a><!-- 이전?p= requestparam을 p로 만들겠다라는 뜻, 현재 페이지 -1 -->
+          </li>
+          <li class="page-item"
+                th:each="pageNo : ${#numbers.sequence(0, page.totalPages - 1)}"
+                th:if="${pageNo >= page.number - 5 && pageNo < page.number + 5}"
+                th:classappend="${pageNo == page.number} ? 'active'">
+              <!-- th:each부분: 0부터 시작하기 때문에 -1을 해줘야한다.--> 
+              <!-- th:if부분: 현재 페이지에서 이전으로 5개, 다음으로 4개까지 보여준다. -->
+              <a class="page-link"
+                  th:href="@{|?p=${pageNo}|}"
+                  th:text="${pageNo + 1}"></a>
+        </li>
+          <li class="page-item" th:classappend="${!page.hasNext} ? 'disabled'">
+            <a class="page-link" th:href="@{|?p=${page.number + 1}|}">다음</a>
+          </li>
+        </ul>
+      </nav>
+    </th:block>
     
     <th:block th:fragment="bootstrapJS">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 

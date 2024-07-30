@@ -1,7 +1,9 @@
 package com.itwill.springboot5.Repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.isNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,6 +74,21 @@ public class PostRepositoryTest {
         // JPA는 id로 select 쿼리를 먼저 실행한 후
         // 엔터티가 존재하는 경우에 delete 쿼리를 실행함.
         // select * from posts where id = ?
+    }
+
+    @Test
+    public void makeDummyData() {
+        List<Post> data = new ArrayList<>();
+        for (int i = 1; i <= 50; i++) {
+            Post post = Post.builder()
+                        .title("Dummy Title #" + i)
+                        .content("dummy contestn #" + i)
+                        .author("admin")
+                        .build();
+                        data.add(post);
+        }
+
+        postRepo.saveAll(data);
     }
 
 }

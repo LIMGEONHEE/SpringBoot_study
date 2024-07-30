@@ -20,18 +20,25 @@
                     </thead>
                     
                     <tbody>
-                        <tr th:each="p : ${posts}" th:object="${p}">
+                        <tr th:each="post : ${page}" th:object="${post}">
                             <td th:text="*{id}"></td>
-                            <td th:text="*{title}"></td>
+                            <td>
+                                <!-- th:href="@{/post/details(id=*{id})}": pathvariable 방법-->
+                                <!-- query string request parameter 방식 요청 주소 -->
+                                <a th:href="@{/post/details(id=*{id})}" th:text="*{title}"></a> 
+                                
+                            </td>
                             <td th:text="*{author}"></td>
                             <td th:text="*{#temporals.format(modifiedTime,'yyyy-mm-dd:mm:ss')}"></td>
                         </tr>
                     </tbody>
                 </table>
+
+                <th:block th:replace="~{/layout/fragments :: pagination}"></th:block>
             </div>
         </div>
      </main>
-
+     
     <th:block th:replace="~{/layout/fragments :: bootstrapJS}"></th:block>
 </body>
 </html>
