@@ -35,11 +35,10 @@ public class Post extends BaseTimeEntity {
     @Basic(optional = false)
     private String author;
 
-    // update 기능(제목/내용 수정)에서 사용할 공개 메서드
+    // update 기능(제목/내용/작성자 수정)에서 사용할 공개 메서드
     public Post update(String title, String content){
         this.title = title;
         this.content = content;
-        
         return this;
     }
     

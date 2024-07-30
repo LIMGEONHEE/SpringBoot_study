@@ -1,7 +1,5 @@
 package com.itwill.springboot5.service;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.itwill.springboot5.domain.Post;
 import com.itwill.springboot5.dto.PostCreateDto;
 import com.itwill.springboot5.dto.PostListItemDto;
+import com.itwill.springboot5.dto.PostUpdateDto;
 import com.itwill.springboot5.repository.PostRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -73,5 +72,32 @@ public class PostService {
     //     return PostListItemDto.fromEntity(post);
     // }
 
+    @Transactional(readOnly = true) // 읽기 전용
+    public Post readById(Long id) {
+        log.info("readById(id={})", id);
 
+        Post entity =  postRepo.findById(id).orElseThrow();
+        log.info("entity = {}", entity);
+
+        return entity;
+    }
+
+    public void deleteById(Long id) {
+        log.info("deleteById(id={})", id);
+        
+        postRepo.deleteById(id);
+    }
+
+    public void update(PostUpdateDto dto) {
+        log.info("update(dto={})", dto);
+
+        Post entity = postRepo.findById(dto.getId()).orElseThrow();
+
+        entity.update(dto.getTitle(), dto.getContent());
+        log.info("update 호출 = {}", entity);
+
+        entity = postRepo.save(entity);
+        log.info("save 호출 = {}", entity);
+    }
+    
 }

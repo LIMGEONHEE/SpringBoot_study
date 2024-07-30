@@ -1,11 +1,9 @@
 package com.itwill.springboot5.Repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.isNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +56,7 @@ public class PostRepositoryTest {
         Post entity = postRepo.findById(1L).orElseThrow();
         log.info("findById 결과 = {}", entity);
 
-        entity.update("update 테스트 2", "JPA update 테스트 2");
+        entity.update("update 테스트 2", "JPA update 테스트 2", "admin");
         log.info("update 호출 = {}", entity);
 
         // update 쿼리 실행: 
