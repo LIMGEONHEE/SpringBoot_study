@@ -82,21 +82,29 @@ public class PostService {
         return entity;
     }
 
+    @Transactional
     public void deleteById(Long id) {
         log.info("deleteById(id={})", id);
         
         postRepo.deleteById(id);
     }
 
+    @Transactional
     public void update(PostUpdateDto dto) {
         log.info("update(dto={})", dto);
 
+        // id로 Post 엔터티 객체를 찾음(DB select 쿼리)
         Post entity = postRepo.findById(dto.getId()).orElseThrow();
 
+        // DB에서 검색한 엔터티 객체의 필드들을 업데이트(수정)
         entity.update(dto.getTitle(), dto.getContent());
         log.info("update 호출 = {}", entity);
 
-        entity = postRepo.save(entity);
+        // @Transactional 애너테이션을 사용한 경우, 
+        // DB에서 검색한 entity 객체가 변경되면 update 쿼리가 자동으로 실행. 
+        // @Transactional 애너테이션을 사용하지 않은 경우,
+        // postRepo.save(entity) 메서드를 직접 호출해야 함.
+        entity = postRepo.save(entity); // @Transactional이 있어서 생략이 가능함.
         log.info("save 호출 = {}", entity);
     }
     

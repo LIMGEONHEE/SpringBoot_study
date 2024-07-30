@@ -62,7 +62,7 @@ public class PostController {
     }
 
     @GetMapping("/delete")
-    public String delete(@RequestParam(name = "id") Long id) {
+    public String delete(@RequestParam("id") Long id) {
         log.info("delete(id={})", id);
         
         postSvc.deleteById(id);
@@ -76,7 +76,7 @@ public class PostController {
 
         postSvc.update(dto);
         
-        return "redirect:/post/list";
+        return "redirect:/post/details?id=" + dto.getId();
     }
 
 }

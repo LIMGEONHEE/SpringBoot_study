@@ -8,21 +8,20 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data @NoArgsConstructor @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Data // @Data 하나만 있어도 된다.
+@NoArgsConstructor @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 public class PostUpdateDto {
 
     private Long id;
     private String title;
     private String content;
-    private String author;
 
     public Post toEntity() {
         return Post.builder()
                 .id(id)
                 .title(title)
                 .content(content)
-                .author(author)
                 .build();
     }
 
