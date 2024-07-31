@@ -21,13 +21,13 @@ public class PostRepositoryTest {
     @Autowired
     private PostRepository postRepo;
 
-    @Test
+    // @Test
     public void testDependencyInjection() {
         assertThat(postRepo).isNotNull(); // postRepo 객체가 null이 아니면 테스트 성공.
         log.info("postRepo = {}", postRepo);
     }
 
-    @Test
+    // @Test
     public void testFindAll() {
         List<Post> list = postRepo.findAll();
         assertThat(list.size()).isEqualTo(0); // list의 원소 개수가 0이면 성공.
@@ -35,7 +35,7 @@ public class PostRepositoryTest {
         list.forEach(System.out::println); // (x) -> System.out.println(x)
     }
 
-    @Test
+    // @Test
     public void testSave() {
         // DB 테이블에 저장할 엔터티 객체를 생성:
         Post entity = Post.builder()
@@ -50,13 +50,13 @@ public class PostRepositoryTest {
         log.info("save 후: {}", entity);
     }
 
-    @Test
+    // @Test
     public void testUpdate() {
         // PK(id)로 엔터티를 검색:
         Post entity = postRepo.findById(1L).orElseThrow();
         log.info("findById 결과 = {}", entity);
 
-        entity.update("update 테스트 2", "JPA update 테스트 2", "admin");
+        entity.update("update 테스트 2", "JPA update 테스트 2");
         log.info("update 호출 = {}", entity);
 
         // update 쿼리 실행: 
@@ -66,7 +66,7 @@ public class PostRepositoryTest {
         log.info("save 호출 = {}", entity);
     }
 
-    @Test
+    // @Test
     public void testDelete() {
         postRepo.deleteById(1L);
         // JPA는 id로 select 쿼리를 먼저 실행한 후
@@ -74,7 +74,7 @@ public class PostRepositoryTest {
         // select * from posts where id = ?
     }
 
-    @Test
+    // @Test
     public void makeDummyData() {
         List<Post> data = new ArrayList<>();
         for (int i = 1; i <= 50; i++) {

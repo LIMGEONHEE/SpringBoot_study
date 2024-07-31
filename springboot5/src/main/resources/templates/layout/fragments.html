@@ -49,11 +49,12 @@
 
     <th:block th:fragment="pagination">
       <nav> 
-        <ul class="pagination justify-content-center"><!-- justify-content-center 가운데 정렬 -->
+        <ul class="pagination justify-content-center"
+            th:with="uriBuilder=${T(com.itwill.springboot5.web.ServletUriComponentsBuilderWrapper).fromCurrentRequest()}"><!-- justify-content-center 가운데 정렬 -->
           <li class="page-item" th:classappend="${!page.hasPrevious} ? 'disabled'"> <!--- 이전 페이지가 없다면 'disabled' -->
             <a class="page-link" th:href="@{|?p=${page.number -1}|}">이전</a><!-- 이전?p= requestparam을 p로 만들겠다라는 뜻, 현재 페이지 -1 -->
           </li>
-          <li class="page-item"
+          <li class="page-item" 
                 th:each="pageNo : ${#numbers.sequence(0, page.totalPages - 1)}"
                 th:if="${pageNo >= page.number - 5 && pageNo < page.number + 5}"
                 th:classappend="${pageNo == page.number} ? 'active'">
@@ -64,7 +65,7 @@
                   th:text="${pageNo + 1}"></a>
         </li>
           <li class="page-item" th:classappend="${!page.hasNext} ? 'disabled'">
-            <a class="page-link" th:href="@{|?p=${page.number + 1}|}">다음</a>
+            <a class="page-link" th:href="@{|?p=${page.number + 1}|}, ">다음</a>
           </li>
         </ul>
       </nav>
