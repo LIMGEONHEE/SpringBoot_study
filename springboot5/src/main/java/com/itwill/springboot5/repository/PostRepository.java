@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import com.itwill.springboot5.domain.Post;
 
 // CRUD + Paging/Sorting
-public interface PostRepository extends JpaRepository<Post, Long> {
+public interface PostRepository extends JpaRepository<Post, Long>, PostQuerydsl {
     List<Post> findAllByOrderByIdDesc(); // Id 내림차순 정렬.
     
     // JPA Query Method 작성:
@@ -32,6 +32,4 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             + "where upper(p.title) like upper('%' || :keyword || '%') "
             + "or upper(p.content) like upper('%' || :keyword || '%') ") // 테이블에 있는 것을 그대로 입력하는 것이 아니라 엔터티에 있는 이름과 필드이름을 가져와야한다.
     Page<Post> findByTitleOrContent(@Param("keyword") String keyword, Pageable pageable);
-
-    
 }
