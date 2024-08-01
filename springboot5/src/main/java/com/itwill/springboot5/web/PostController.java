@@ -33,8 +33,13 @@ public class PostController {
 
         // 서비스 계층의 메서드를 호출 -> 뷰에 포스트 목록 전달
          Page<PostListItemDto> list = postSvc.read(pageNo, Sort.by("id").descending()); // id 내림차순
-         model.addAttribute("page", list); // fragments.html에서 객체 이름을 "page"라고 썼기 때문에 같게 써야한다.
-    } // list의 page는 모든 글을 가지고 있는 Page 객체.
+         model.addAttribute("page", list); 
+         // fragments.html에서 객체 이름을 "page"라고 썼기 때문에 같게 써야한다.
+         // list의 page는 모든 글을 가지고 있는 Page 객체.
+
+         // pagination fragment에서 사용하기 위한 현재 요청 주소 정보
+        model.addAttribute("baseUrl", "/post/list");
+    } 
 
     @GetMapping("/create")
     public void create() {
@@ -85,9 +90,12 @@ public class PostController {
         log.info("search(dto={})", dto);
 
         Page<PostListItemDto> result = postSvc.search(dto, Sort.by("id").descending());
-        model.addAttribute("page", result);
+        model.addAttribute("page", result); // 검색 조건에 맞는 Page의 객체를 가지고 있다.
+
+        // pagination fragment에서 사용할 현재 요청 주소 정보
+        model.addAttribute("baseUrl", "/post/search");
 
         return "post/list";
-    } // 검색 조건에 맞는 Page의 객체를 가지고 있다.
+    } 
 
 }

@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import com.itwill.springboot5.domain.Post;
 
 // CRUD + Paging/Sorting
-public interface PostRepository extends JpaRepository<Post, Long>, PostQuerydsl {
+public interface PostRepository extends JpaRepository<Post, Long>, PostQuerydsl { // JpaRepository<Post, Long>의 구현은 hibernate가 해주고, PostQuerydsl의 구현은 우리가 직접 해준다.
     List<Post> findAllByOrderByIdDesc(); // Id 내림차순 정렬.
     
     // JPA Query Method 작성:
