@@ -6,6 +6,10 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import com.itwill.springboot5.domain.Post;
 import com.itwill.springboot5.dto.PostSearchRequestDto;
@@ -19,7 +23,7 @@ public class PostQuerydslTest {
     
     @Autowired private PostRepository postRepo;
 
-    @Test
+//    @Test
     public void testSearchById() {
         Post entity = postRepo.searchById(2L);
         log.info("entity = {}", entity);
@@ -44,10 +48,13 @@ public class PostQuerydslTest {
         // result = postRepo.searchByCategory(dto);
 
         String[] keywords = "jpa 테스".split(" "); // {"dum", "title"};
-        result = postRepo.searchByKeywords(keywords);
-        
+        // result = postRepo.searchByKeywords(keywords);
+
+        Pageable pageable = PageRequest.of(1, 5, Sort.by("id").descending());
+        Page<Post> page = postRepo.searchByKeywords(keywords, pageable);
+        page.forEach(System.out::println);    
         // result.forEach(System.out::println);
-        result.forEach((x)->{System.out.println(x);});
+        // result.forEach((x)->{System.out.println(x);});
         
         // 5개가 안되면 오류가 뜬다.
         // for (int i = 0; i < 5; i++) {
