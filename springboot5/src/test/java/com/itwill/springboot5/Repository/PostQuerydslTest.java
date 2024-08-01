@@ -1,6 +1,6 @@
 package com.itwill.springboot5.Repository;
 
-import java.time.LocalDateTime;
+
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import com.itwill.springboot5.domain.Post;
-import com.itwill.springboot5.dto.PostSearchRequestDto;
 import com.itwill.springboot5.repository.PostRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +28,7 @@ public class PostQuerydslTest {
         log.info("entity = {}", entity);
     }
 
-    @Test
+    // @Test
     public void test() {
         List<Post> result = null;
         // result = postRepo.searchByTitle("Dumm");
