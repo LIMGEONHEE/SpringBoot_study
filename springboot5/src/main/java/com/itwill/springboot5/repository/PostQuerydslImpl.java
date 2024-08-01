@@ -168,9 +168,11 @@ public class PostQuerydslImpl extends QuerydslRepositorySupport implements PostQ
 
         // 한 페이지에 표시할 데이터를 fetch(select).
         List<Post> list = query.fetch();
+        log.info("list.size = {}", list.size());
 
         // 전체 레코드 개수를 fetch.
         long count = query.fetchCount();
+        log.info("fetch count = {}", count);
 
         // Page<T> 객체를 생성.
         Page<Post> page = new PageImpl<>(list, pageable, count);
