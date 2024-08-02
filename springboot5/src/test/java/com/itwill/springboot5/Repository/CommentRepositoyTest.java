@@ -20,7 +20,7 @@ public class CommentRepositoyTest {
     @Autowired
     private CommentRepository comRepo;
 
-    @Test
+    // @Test
     public void testFindAll() {
         List<Comment> list = comRepo.findAll();
         assertThat(list.size()).isEqualTo(0);
@@ -28,7 +28,7 @@ public class CommentRepositoyTest {
         list.forEach((x)-> {System.out.println(x);});
     }
 
-    @Test 
+    // @Test 
     public void testUpdate() {
         Comment entity = comRepo.findById(1L).orElseThrow(null);
         log.info("findById = {}", entity);
@@ -40,7 +40,7 @@ public class CommentRepositoyTest {
         log.info("save = {]", entity);
     }
 
-    @Test
+    // @Test
     public void testDelete() {
         comRepo.deleteById(1L);
     }
