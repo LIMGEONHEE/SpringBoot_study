@@ -11,9 +11,9 @@
             <div calss="card-body" th:object="${post}">
                 <form>
                     <div class="mt-2">
-                        <label for="id" class="form-label">번호</label>
-                        <input type="text" class="form-control" id="id"
-                            th:value="*{id}" name="id" readonly />
+                        <label class="form-label" for="id">번호</label>
+                        <input type="text" class="form-control" id="id" 
+                            th:value="*{id}" readonly />
                         <!-- label의 for와 input의 id를 같게 해야함 -->
                     </div>
                     <div class="mt-2">
@@ -69,12 +69,13 @@
                     <textarea class="form-control" id="commentText" rows="3" placeholder="댓글 내용 작성"></textarea>
                     
                     <!-- TODO: 로그인 사용자 이름으로 설정(value) -->
-                    <input class="d-none" id="commentsWriter" value="admin" readonly />
+                    <input class="d-none" id="commentWriter" value="admin" readonly />
                 </div>
                 <div class="col-2">
-                    <button class="btn btn-outline-success form-control" id="btnRegisterComment">등록</button>
+                        <button class="btn btn-outline-success form-control"
+                            id="btnRegisterComment">등록</button>
                 </div>
-             </div>
+            </div>
 
             <!-- 댓글 목록 -->
              <div class="mt-2" id="divComments"></div>

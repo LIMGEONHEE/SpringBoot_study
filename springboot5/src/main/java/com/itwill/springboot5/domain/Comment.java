@@ -19,7 +19,8 @@ import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE) @Builder
-@Getter @ToString @EqualsAndHashCode(callSuper = true)
+@Getter @ToString(callSuper = true) // 부모 클래스도 toString으로 해준다.
+@EqualsAndHashCode(callSuper = true)
 @Entity @Table(name = "COMMENTS")
 public class Comment extends BaseTimeEntity {
 
