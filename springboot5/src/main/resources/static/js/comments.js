@@ -65,7 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 댓글 내용 입력란 비우기.
                 document.querySelector('textarea#commentText').value = '';
 
-                // TODO: 댓글 목록 갱신
+                // 댓글 목록 갱신
+                getAllComments(0);
             })
             .catch((error) => console.log(error));
     }
