@@ -55,6 +55,44 @@
         </div>
     </main>
 
+    <!-- 댓글 작성/목록 Collapse -->
+    <div class="mt-2 card">
+        <div class="card-header">
+            <button class="btn btn-outline-secondary" id="btnToggle"
+                    data-toggle="collapse">댓글 보기</button>
+                    <!-- id는 js에서 쓰기 위해. data라는 접두사를 붙여서 이름을 만들면 개발자가 직접만드는 Attributes이다. -->
+        </div>
+        <div class="card-body collapse" id="collapseComments">
+            <!-- 댓글 작성 -->
+             <div class="row">
+                <div class="col-10">
+                    <textarea class="form-control" id="commentText" rows="3" placeholder="댓글 내용 작성"></textarea>
+                    
+                    <!-- TODO: 로그인 사용자 이름으로 설정(value) -->
+                    <input class="d-none" id="commentsWriter" value="admin" readonly />
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-outline-success form-control" id="btnRegisterComment">등록</button>
+                </div>
+             </div>
+
+            <!-- 댓글 목록 -->
+             <div class="mt-2" id="divComments"></div>
+
+            <!-- 댓글 목록 페이징 처리를 위한 버튼: [더보기] 버튼 -->
+             <div class="d-flex justify-content-center">
+                <button class="btn btn-outline-secondary" id="btnMoreCommnets">더보기</button>
+             </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 자바스트립트 -->
     <th:block th:replace="~{/layout/fragments :: bootstrapJS}"></th:block>
+
+    <!-- Ajax를 사용하기 위한 Axiox 자바스트립트 라이브러리 -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- 댓글 기능을 위한 자바스크립트 -->
+    <script th:src="@{/js/comments.js}"></script>
 </body>
 </html>
