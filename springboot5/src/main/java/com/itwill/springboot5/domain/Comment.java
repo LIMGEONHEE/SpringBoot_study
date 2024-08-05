@@ -43,4 +43,5 @@ public class Comment extends BaseTimeEntity {
         this.ctext = ctext;
         return this;
     }
+
 }

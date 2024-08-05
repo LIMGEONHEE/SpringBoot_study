@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btnToggle.innerHTML = '댓글 보기';
             btnToggle.setAttribute('data-toggle', 'collapse');
         }
-
+ 
     });
 
     // 댓글 [등록] 버튼을 찾아서, 클릭 이벤트 리스너를 설정:
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnMoreComments.addEventListener('click', () => getAllComments(currentPageNo + 1));
 
 
-    //----- 함수 정의(선언) -----
+    //----- 함수 정의(선언) ------------------------------------------------------------------------------
     function registerComment() {
         // 댓글이 달린 포스트의 아이디
         const postId = document.querySelector('input#id').value;
@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getAllComments(pageNo) {
         // 댓글들이 달린 포스트 아이디:
+        
         const postId = document.querySelector('input#id').value;
         
         // Ajax 요청을 보낼 주소:
@@ -85,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then((response) => {
                 console.log(response);
                 // 댓글 목록을 HTML로 작성
-                makeCommentElements(response.data.content, response.data.number);
+                makeCommentElements(response.data.content, response.data.number); // content는 배열, number은 현재 페이지 번호
             })
             .catch((error) => console.log(error));
     }
@@ -105,11 +106,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="mt-2">
                     <div class="mt-2">
-                        <textarea class="form-control">${comment.ctext}</textarea>
+                        <textarea class="commentText form-control" data-id="${comment.id}">${comment.ctext}</textarea>
                     </div>
                     <div class="mt-2">
-                        <button class="btnDelete btn btn-outline-danger btn-sm">삭제</button>
-                        <button class="btnUpdate btn btn-outline-primary btn-sm">수정</button>
+                        <button class="btnDelete btn btn-outline-danger btn-sm" data-id="${comment.id}">삭제</button>
+                        <button class="btnUpdate btn btn-outline-primary btn-sm" data-id="${comment.id}">수정</button>
                     </div>
                 </div>
 
@@ -123,6 +124,67 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             // 댓글 목록에서 첫번째 페이지가 아니면, 기존 내용 밑에 추가(append)
             divComments.innerHTML += htmlStr;
-        }
+        } 
+
+        // 댓글 [삭제], [수정] 버튼들의 이벤트 리스너는 버튼들이 생겨난 이후에 등록!
+        // 모든 button.btnDelete 버튼들을 찾아서 클릭 이벤트 리스너를 등록.
+        const btnDeletes = document.querySelectorAll('button.btnDelete'); // 여러개를 찾을 것이기 때문에 SelectorAll을 선택.
+        btnDeletes.forEach((btn) => {
+            btn.addEventListener('click', deleteComment); // deleteComment는 함수를 만들고 컨트롤러에서도 작성해야한다.
+        });
+
+        const btnUpdates = document.querySelectorAll('button.btnUpdate');
+        btnUpdates.forEach((btn) => {
+            btn.addEventListener('click', updateComment);
+        });
+
     }
+
+    function deleteComment(event) { // event 타켓을 찾기 위해 아규먼트에 넣어줘야한다.
+        // console.log(event);
+        // console.log(event.target);
+        if (!confirm('정말 삭제할까요?')) {
+            return;
+        }
+
+        const id = event.target.getAttribute('data-id'); // 삭제할 댓글 아이디
+        const uri = `/api/comment/${id}`; // 삭제 Ajax 요청을 보낼 주소
+        axios.delete(uri)
+            .then((response) => {
+                console.log(response);
+                alert(`댓글 #${id} 삭제 성공`)
+                getAllComments(0); // 댓글 목록 갱신
+            }) 
+            .catch((error) => console.log(error)); // (() => ())한문장 밖에 없으면 {}가 아니라 ()를 쓸 수 있고 세미클론(;)도 생략가능하다.
+    }
+
+    function updateComment(event) {
+        // console.log(event.target);
+        const id = event.target.getAttribute('data-id'); // 업데이트할 댓글 아이디
+        
+        const textarea = document.querySelector(`textarea.commentText[data-id="${id}"]`); // ${id}는 이벤트가 타겟에서 찾은 데이터id 속성값. 속성값을 쓸 때에는 대괄호[] 사용.
+        // console.log(textarea);
+
+        const ctext = textarea.value; // 업데이트할 댓글 내용
+        if (ctext.trim() === ''){
+            alert('댓글 내용은 반드시 입력해야 합니다.');
+            return;
+        }
+
+        if (!confirm('변경된 댓글을 저장할까요?')) {
+            return;
+        } 
+
+        const uri = `/api/comment/${id}`; // Ajax 요청을 보낼 주소
+        const data = { id, ctext}; // 업데이트 요청 데이터. {id: id, ctext: ctext} 프로퍼티 이름이 지역변수와 이름이 같으면 생략가능.
+        axios.put(uri, data)
+            .then((response) => {
+                console.log(response);
+                alert(`댓글 #${id} 업데이트 성공!`);
+                getAllComments(0); // 댓글 목록 갱신
+            })
+            .catch((error) => console.log(error));
+    }
+
+
 });
