@@ -85,6 +85,16 @@ document.addEventListener('DOMContentLoaded', () => {
         axios.get(uri)
             .then((response) => {
                 console.log(response);
+                currentPageNo = response.data.number;
+
+                // 현재 페이지 번호보다 페이지 개수가 더 많으면 댓글 [더보기]
+                const divBtnMore = document.querySelector('div#divBtnMore');
+                if (currentPageNo + 1 < response.data.totalPages) {
+                    divBtnMore.classList.remove('d-none');
+                } else {
+                    divBtnMore.classList.add('d-none');
+                }
+
                 // 댓글 목록을 HTML로 작성
                 makeCommentElements(response.data.content, response.data.number); // content는 배열, number은 현재 페이지 번호
             })
