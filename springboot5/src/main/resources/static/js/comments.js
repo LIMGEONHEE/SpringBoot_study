@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // 현재 페이지 번호보다 페이지 개수가 더 많으면 댓글 [더보기]
                 const divBtnMore = document.querySelector('div#divBtnMore');
-                if (currentPageNo + 1 < response.data.totalPages) {
+                if (currentPageNo + 1 < response.data.totalPages) { // (!response.data.last)로 해도 된다.
                     divBtnMore.classList.remove('d-none');
                 } else {
                     divBtnMore.classList.add('d-none');
