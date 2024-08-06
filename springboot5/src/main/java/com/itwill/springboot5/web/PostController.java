@@ -3,6 +3,7 @@ package com.itwill.springboot5.web;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,6 +42,8 @@ public class PostController {
         model.addAttribute("baseUrl", "/post/list");
     } 
 
+    // @PreAuthorize("authenticated()") //-> role에 상관없이 아이디/비밀번호로만 인증.
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/create")
     public void create() {
         log.info("create()");
@@ -56,6 +59,7 @@ public class PostController {
         return "redirect:/post/list";
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping({"/details", "/modify"})
     public void details(@RequestParam(name = "id") Long id, Model model){
         log.info("details(id={})", id);
