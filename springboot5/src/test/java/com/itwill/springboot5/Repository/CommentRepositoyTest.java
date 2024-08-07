@@ -4,11 +4,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.itwill.springboot5.domain.Comment;
+
 import com.itwill.springboot5.repository.CommentRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -44,5 +45,7 @@ public class CommentRepositoyTest {
     public void testDelete() {
         comRepo.deleteById(1L);
     }
+
+    
 
 }

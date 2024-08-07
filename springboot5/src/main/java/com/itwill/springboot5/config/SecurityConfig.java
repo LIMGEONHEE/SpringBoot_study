@@ -26,7 +26,7 @@ public class SecurityConfig {
     // HTTP 500(internal server error, 내부 서버 오류) 에러가 발생함.
     // 비밀번호를 암호화하는 객체를 스프링 컨테이너가 bean으로 관리해야 함.
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(); // BCrypt: 암호화 알고리즘 중 하나
     }
 
