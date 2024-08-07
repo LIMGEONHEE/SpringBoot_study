@@ -41,6 +41,7 @@ public class CommentController {
         return ResponseEntity.ok(entity);
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/all/{postId}")
     public ResponseEntity<Page<Comment>> getCommentList(
             @PathVariable(name = "postId") Long postId, 
@@ -52,6 +53,7 @@ public class CommentController {
         return ResponseEntity.ok(data);
     }
 
+    @PreAuthorize("hasRole('USER')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Long> deleteComment(@PathVariable(name = "id") Long id){
         log.info("deleteComment(id={})", id);

@@ -19,7 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 // @Component, @Controller, @RestController, @Service, @Repositoy, @Configuration - 스프링 컨테이너에서 관리하는 컴포넌트 애너테이션
 @EnableMethodSecurity
 // -> 컨트롤러 메서드에서 인증(로그인), 권한 설정을 하기 위해서.
-public class securityConfig {
+public class SecurityConfig {
 
     // Spring Security 5 버전부터 비밀번호는 반드시 암호화를 해야만 함.
     // 만약 비밀번호를 암호화하지 않으면, HTTP 403(access denied, 접근 거부) 또는 
@@ -72,8 +72,9 @@ public class securityConfig {
         http.csrf((csrf) -> csrf.disable()); 
 
         // 로그인 페이지(폼) 설정 - 스프링 시큐리티에서 제공하는 기본 HTML 페이지를 사용.
-        http.formLogin(Customizer.withDefaults());
-        // TODO: Custom 로그인 HTML 페이지를 사용.
+        // http.formLogin(Customizer.withDefaults());
+        // Custom 로그인 HTML 페이지를 사용.
+        http.formLogin((login) -> login.loginPage("/member/signin"));
 
         // 페이지 접근 권한, 인증 구성: 아래의 1 또는 2 방법 중 한 가지를 선택.
         // 1. HttpSecurity.authorizeHttpRequests(Customizer customizer) 메서드에서 설정.
