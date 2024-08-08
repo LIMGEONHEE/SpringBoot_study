@@ -59,4 +59,13 @@ public class MemberRepositoryTest {
         list.forEach((member)-> log.info("{}, {}", member, member.getRoles()));
     }
 
+    @Test
+    public void testFindByUsername(){
+        Member test1 = memberRepo.findByUsername("test1").get();
+        log.info("{}, {}", test1, test1.getRoles());
+
+        Member test2 = memberRepo.findByUsername("test2").get();
+        log.info("{}, {}", test2, test2.getRoles());
+    }
+
 }

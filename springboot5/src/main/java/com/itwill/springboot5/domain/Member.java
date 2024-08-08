@@ -59,7 +59,7 @@ public class Member extends BaseTimeEntity{
     private Set<MemberRole> roles = new HashSet<>();
 
     public Member addRole(MemberRole role) {
-        roles.add(role); // SWD 
+        roles.add(role); // Set<>에 원소를 추가.
         
         return this;
     }
