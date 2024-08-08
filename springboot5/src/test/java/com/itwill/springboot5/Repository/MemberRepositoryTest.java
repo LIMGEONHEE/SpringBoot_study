@@ -39,9 +39,9 @@ public class MemberRepositoryTest {
         // 엔터티 객체를 DB members 테이블에 저장
 
         Member m = Member.builder()
-                    .username("test2")
-                    .password(passwordEncoder.encode("2222"))
-                    .email("test2@itwill.com")
+                    .username("admin")
+                    .password(passwordEncoder.encode("admin"))
+                    .email("admin@itwill.com")
                     .build();
         m.addRole(MemberRole.USER);
         m.addRole(MemberRole.ADMIN);
@@ -67,5 +67,7 @@ public class MemberRepositoryTest {
         Member test2 = memberRepo.findByUsername("test2").get();
         log.info("{}, {}", test2, test2.getRoles());
     }
+
+
 
 }

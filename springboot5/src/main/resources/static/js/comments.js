@@ -102,6 +102,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function makeCommentElements(data, pageNo) {
+        // 로그인 사용자 정보 -> 댓글 삭제/업데이트 버튼을 만들 지 여부를 결정.
+        const authUser = document.querySelector('span#authenticatednUser').innerText;
+        // console.log(`authUser = ${authUser}`);
+
         // 댓글 목록을 추가할 div 요소
         const divComments = document.querySelector('div#divComments')
 
@@ -118,16 +122,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="mt-2">
                         <textarea class="commentText form-control" data-id="${comment.id}">${comment.ctext}</textarea>
                     </div>
-                    <div class="mt-2">
+                    `;
+                    // 로그인 사용자와 댓글 작성자가 같은 경우에만 삭제/업데이트 버튼을 만듦
+                    if (authUser === comment.writer) {
+                    htmlStr +=`<div class="mt-2">
                         <button class="btnDelete btn btn-outline-danger btn-sm" data-id="${comment.id}">삭제</button>
                         <button class="btnUpdate btn btn-outline-primary btn-sm" data-id="${comment.id}">수정</button>
                     </div>
                 </div>
-
+            </div>
+            `;
+        } else {
+            htmlStr += `
+                </div>
             </div>
             `;
         }
-
+    }
+    
         if (pageNo === 0) {
             // 댓글 목록 첫번째 페이지이면, 기존 내용을 다 지우고 새로 작성.
             divComments.innerHTML = htmlStr;

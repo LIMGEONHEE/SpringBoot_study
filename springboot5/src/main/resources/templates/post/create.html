@@ -26,7 +26,8 @@
                     <div class="mt-2">
                         <label class="form-label" for="author">작성자</label>
                         <input type="text" class="form-control" id="author" name="author" 
-                            required autofocus placeholder="작성자를 입력하세요">
+                            th:value="${#authentication.name}"
+                            required  readonly>
                     </div>
                     <div class="mt-2">
                         <input type="submit" class="form-control btn btn-primary" value="작성 완료"></input>
